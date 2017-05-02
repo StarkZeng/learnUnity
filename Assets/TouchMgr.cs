@@ -4,11 +4,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class TouchMgr : MonoBehaviour {
-
-
-
     public float moveSacle = 0.23f;
-    public float cameraDefaultZ = -6.6757f;
+    public float cameraDefaultZ = -6.661075f;
     public float zSpeed = 0.3f;
     public GameObject layerScane;
 
@@ -18,7 +15,7 @@ public class TouchMgr : MonoBehaviour {
     private float scale = 1.0f;
     // Use this for initialization
     void Start () {
-        if(!layerScane)
+        if (!layerScane)
             layerScane = GameObject.Find("layerScane");
 
         Assert.IsNotNull(layerScane);

@@ -1,96 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//设置
+//1.摄像机到地面的默认距离
 public class CameraView : MonoBehaviour
 {
-    private Camera theCamera;
-    public float upperDistance = 6.6857161172f;
-    public float lowerDistance = 12.0f;
-
-    private Transform tx;
-
-
     void Start()
     {
-        if (!theCamera)
-        {
-            theCamera = Camera.main;
-        }
-        tx = theCamera.transform;
-        FindUpperCorners();
-        FindLowerCorners();
+        float w = (float)Screen.width;
+        float h = (float)Screen.height;
 
+        float fov = Camera.main.fov;
+        float near = Camera.main.near;
+        float far = Camera.main.far;
 
+        print(Mathf.Tan(fov / 2 * Mathf.Deg2Rad));
+
+        float z = ((float)h / 2) / 100 / Mathf.Tan(fov / 2 * Mathf.Deg2Rad);
+        print(z);
     }
 
 
     void Update()
     {
-        FindUpperCorners();
-        FindLowerCorners();
 
-
-    }
-
-
-    void FindUpperCorners()
-    {
-        Vector3[] corners = GetCorners(upperDistance);
-
-        // for debugging
-
-        Debug.Log(Vector3.Distance(corners[0], corners[1]));
-        Debug.Log(Vector3.Distance(corners[1], corners[3]));
-        
-        Debug.DrawLine(corners[0], corners[1], Color.yellow); // UpperLeft -> UpperRight
-        Debug.DrawLine(corners[1], corners[3], Color.yellow); // UpperRight -> LowerRight
-        Debug.DrawLine(corners[3], corners[2], Color.yellow); // LowerRight -> LowerLeft
-        Debug.DrawLine(corners[2], corners[0], Color.yellow); // LowerLeft -> UpperLeft
-    }
-
-
-    void FindLowerCorners()
-    {
-        Vector3[] corners = GetCorners(lowerDistance);
-
-        // for debugging
-        Debug.DrawLine(corners[0], corners[1], Color.red);
-        Debug.DrawLine(corners[1], corners[3], Color.red);
-        Debug.DrawLine(corners[3], corners[2], Color.red);
-        Debug.DrawLine(corners[2], corners[0], Color.red);
-    }
-
-
-    Vector3[] GetCorners(float distance)
-    {
-        Vector3[] corners = new Vector3[4];
-
-        float halfFOV = (theCamera.fieldOfView * 0.5f) * Mathf.Deg2Rad;
-        float aspect = theCamera.aspect;
-
-        float height = distance * Mathf.Tan(halfFOV);
-        float width = height * aspect;
-
-        // UpperLeft
-        corners[0] = tx.position - (tx.right * width);
-        corners[0] += tx.up * height;
-        corners[0] += tx.forward * distance;
-
-        // UpperRight
-        corners[1] = tx.position + (tx.right * width);
-        corners[1] += tx.up * height;
-        corners[1] += tx.forward * distance;
-
-        // LowerLeft
-        corners[2] = tx.position - (tx.right * width);
-        corners[2] -= tx.up * height;
-        corners[2] += tx.forward * distance;
-
-        // LowerRight
-        corners[3] = tx.position + (tx.right * width);
-        corners[3] -= tx.up * height;
-        corners[3] += tx.forward * distance;
-
-        return corners;
     }
 }
