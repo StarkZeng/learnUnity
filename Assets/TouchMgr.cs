@@ -4,23 +4,18 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class TouchMgr : MonoBehaviour {
-    public float moveSacle = 0.23f;
-    public float cameraDefaultZ = -6.661075f;
-    public float zSpeed = 0.3f;
-    public GameObject layerScane;
+    public float _moveSacle = 1.0f;
+    public float _cameraZSpeed = 0.3f;
 
 
-    private Vector3 zMoveVec;
-    private float cameraZ;
-    private float scale = 1.0f;
+    private float _cameraDefaultZ;
+    private float _cameraCurZ;
+    private float _scale = 1.0f;
     // Use this for initialization
     void Start () {
-        if (!layerScane)
-            layerScane = GameObject.Find("layerScane");
-
-        Assert.IsNotNull(layerScane);
-        zMoveVec = new Vector3(0, 0, zSpeed);
-        cameraZ = cameraDefaultZ;
+        _cameraDefaultZ = Camera.main.GetComponent<CameraView>().cameraZ;
+        _cameraCurZ = _cameraDefaultZ;
+        print(_cameraCurZ);
     }
 	
 	// Update is called once per frame
@@ -30,29 +25,31 @@ public class TouchMgr : MonoBehaviour {
         {
             float moveX = Input.GetAxis("Mouse X");
             float moveY = Input.GetAxis("Mouse Y");
-            Camera.main.transform.position -= new Vector3(moveX , moveY, 0)  * moveSacle / scale;
+            print("moveX :" + moveX);
+            print("moveY :" + moveY);
+            Camera.main.transform.position -= new Vector3(moveX , moveY, 0)  * _moveSacle / _scale;
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            Camera.main.transform.position -= zMoveVec;
+            Camera.main.transform.position -= new Vector3(0,0, _cameraZSpeed);
 
-            cameraZ -= zMoveVec.z;
+            _cameraCurZ -= _cameraZSpeed;
             calcScale();
         }
         //Zoom in
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            Camera.main.transform.position += zMoveVec;
-            cameraZ += zMoveVec.z;
+            Camera.main.transform.position += new Vector3(0, 0, _cameraZSpeed);
+            _cameraCurZ += _cameraZSpeed;
             calcScale();
         }
     }
 
     private void calcScale()
     {
-        scale = cameraDefaultZ/cameraZ;
-        Debug.Log("scale :" + scale);
+        _scale = _cameraCurZ/_cameraDefaultZ;
+        Debug.Log("scale :" + _scale);
     }
 }
 
