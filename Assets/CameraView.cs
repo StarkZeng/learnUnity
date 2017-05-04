@@ -6,25 +6,23 @@ using System.Collections;
 //1.摄像机到地面的默认距离
 public class CameraView : MonoBehaviour
 {
-    public float cameraZ{ get; set; }
-    void Awake()
-    {
+	public float cameraZ{ get; set; }
 
-        Camera camera = Camera.main;
-        float w = (float)Screen.width;
-        float h = (float)Screen.height;
+	void Awake()
+	{
 
-        print(w);
-        print(h);
+		Camera camera = Camera.main;
+		float w = (float)Screen.width;
+		float h = (float)Screen.height;
 
-        float fov = camera.fieldOfView;
-        float near = camera.nearClipPlane;
-        float far = camera.farClipPlane;
+		float fov = camera.fieldOfView;
+		float near = camera.nearClipPlane;
+		float far = camera.farClipPlane;
 
-        cameraZ = ((float)h / 2) / Mathf.Tan(fov / 2 * Mathf.Deg2Rad)  / 100 - near;
+		cameraZ = ((float)h / 2) / Mathf.Tan(fov / 2 * Mathf.Deg2Rad) / 100 - near;
+		cameraZ = -cameraZ;
+		camera.transform.position = new Vector3(0, 0, cameraZ);
+		camera.aspect = w / h;
 
-        camera.transform.position = new Vector3(0, 0, -cameraZ);
-        camera.aspect = w / h;
-
-    }
+	}
 }
