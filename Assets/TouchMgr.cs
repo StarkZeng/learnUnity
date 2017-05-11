@@ -26,7 +26,7 @@ public class TouchMgr : MonoBehaviour
 	{
 		_cameraDefaultZ = Camera.main.GetComponent<CameraView>().cameraZ;
 		_cameraCurZ = _cameraDefaultZ;
-		print(_cameraCurZ);
+		//print(_cameraCurZ);
 	}
 
 	void Update()
