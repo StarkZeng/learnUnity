@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 1347436857
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ac2151463128a7b4459f08bb98ac4720
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4774d6da9b606debf00b5a5d61c4487c
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/texture/A.jpg
+- Assets/Resources/texture/baidu_jgylogo3.gif
+- Assets/Resources/texture/image.png
+Dependencies: []
